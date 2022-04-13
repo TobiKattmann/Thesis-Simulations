@@ -3,7 +3,7 @@
 #SBATCH -J CHT-steady-gv ### name of job
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=14     ### optional: min cores(,max_cores)
-#SBATCH -t 6:00:00             ### run time of job (hour:)minute
+#SBATCH -t 12:00:00             ### run time of job (hour:)minute
 #SBATCH -e err.log           ### name of error file
 #SBATCH -o out.log           ### name of output file
 #SBATCH --partition=idle
