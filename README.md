@@ -9,3 +9,8 @@ FADO: https://github.com/su2code/FADO/tree/d4dfa56b1f6f52e6e362c7954d2f2474b55b2
 All submodules unchanged. Working directories clean.
 
 GMSH: output of `gmsh --version` is  `4.8.4-git-566a1db`
+
+gcc 11.2.0
+OpenMPI 4.0.5
+Python 3.8.8 with Anaconda 2021.05
+(Paraview 4.4)
