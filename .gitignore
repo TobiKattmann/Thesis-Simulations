@@ -1,0 +1,37 @@
+# Meshes
+# The policy for meshes is: They are allowed in the repository but only once.
+# In the spirit of "single source of origin" all other appearances need to be symlinked.
+#*.su2
+#*.cgns
+
+# Restart and history files
+*.dat
+*.csv
+
+# Paraview output and script files
+*.vtu
+*.vtm
+*.vtk
+*.pvsm
+*.avi
+
+# Automatically generated folders
+# 4 folders for restart validation
+1__FullIter
+2__FullMinus1Iter
+3__PrimalRestart
+4__AdjointRestart
+# folders for gradient validation
+DESIGN_*
+DSN_*
+DOE
+OPTIM
+doe.his
+optim.his
+
+# log files
+*.log
+*.txt
+# scheduler files
+*.err
+*.out

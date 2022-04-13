@@ -3,7 +3,7 @@
 #SBATCH -J CHT-trans-gv ### name of job
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=12     ### optional: min cores(,max_cores)
-#SBATCH -t 48:00:00             ### run time of job (hour:)minute
+#SBATCH -t 72:00:00             ### run time of job (hour:)minute
 #SBATCH -e err.log           ### name of error file
 #SBATCH -o out.log           ### name of output file
 ncores="                  12"
