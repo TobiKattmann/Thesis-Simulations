@@ -2,6 +2,7 @@
 # The policy for meshes is: They are allowed in the repository but only once.
 # In the spirit of "single source of origin" all other appearances need to be symlinked.
 #*.su2
+*deformed.su2
 #*.cgns
 
 # Restart and history files
@@ -21,6 +22,7 @@
 2__FullMinus1Iter
 3__PrimalRestart
 4__AdjointRestart
+
 # folders for gradient validation
 DESIGN_*
 DSN_*
@@ -29,9 +31,15 @@ OPTIM
 doe.his
 optim.his
 
+# intermediate debug setups
+.vscode
+
 # log files
 *.log
 *.txt
 # scheduler files
 *.err
 *.out
+
+# images
+*.png
