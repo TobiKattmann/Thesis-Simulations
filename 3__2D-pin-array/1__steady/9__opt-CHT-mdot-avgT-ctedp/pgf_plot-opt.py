@@ -9,6 +9,14 @@ from cmath import nan
 from numpy import NaN
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("pgf")
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
 
 # ------------------------------------------------------------------------------------- #
 # global variables
@@ -84,11 +92,11 @@ def plotOF(df):
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.axhline(y=208.023, color='black', linestyle='-') # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
 
-    
+
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
     fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('OF_constr.png', bbox_inches='tight')#, dpi=100)
-    plt.show()
+    plt.savefig('OF_constr.pgf', bbox_inches='tight')#, dpi=100)
+    #plt.show()
     plt.cla()
     plt.close()
 
@@ -104,8 +112,8 @@ def plotGradNorm(df):
 
     color = 'tab:red'
     ax1.set_xlabel('Design Iteration')
-    #ax1.set_ylabel('OF gradient [K/m]', color=color)
-    ax1.set_ylabel('||G||/||G_0||')
+    ax1.set_ylabel('normalized Gradient Norm')
+    #ax1.set_ylabel('$\left\lVert G\right\rVert / \left\lVert G_0 \right\rVert$')#, color=color)
     ax1.plot(df['ITER'].values, df['avgT-gradNorm'].values / df['avgT-gradNorm'].values[0],
              color=color,
              linestyle='-',
@@ -141,8 +149,8 @@ def plotGradNorm(df):
     
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
     fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('gradNorm_OF_constr.png', bbox_inches='tight')#, dpi=100)
-    plt.show()
+    plt.savefig('gradNorm_OF_constr.pgf', bbox_inches='tight')#, dpi=100)
+    #plt.show()
     plt.cla()
     plt.close()
     
@@ -155,3 +163,4 @@ if __name__=='__main__':
     gradnorm_df = pd.read_csv('gradient_norm.csv')
     gradnorm_df = postprocessData(gradnorm_df, 'avgT-gradNorm', nan)
     plotGradNorm(gradnorm_df[:xmax])
+    

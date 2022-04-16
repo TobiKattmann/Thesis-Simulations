@@ -9,12 +9,20 @@ from cmath import nan
 from numpy import NaN
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("pgf")
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
 
 # ------------------------------------------------------------------------------------- #
 # global variables
 textwidth = 6.202
-fig_width = textwidth # two images side-by-side
-fig_height = textwidth / 2 * 3/4 # 4/3 width to height ratio
+fig_width = textwidth # two images above one another
+fig_height = textwidth
 xmax = 66
 
 # ------------------------------------------------------------------------------------- #
@@ -44,18 +52,19 @@ def postprocessData(df, dfkey, infeasibleValue):
 
     return df
 
-def plotOF(df):
-    """
-    Plot the OF and constraint value, use left and right axis for that
+if __name__=='__main__':
+    hist_df = pd.read_csv('optim.csv')
+    hist_df = postprocessData(hist_df, '  avgT', 10000)
+    df = hist_df[:xmax]
+    # ------------------------------------------------------------------------------------- #
+    # Plot 2 plots into same figure
+    # https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html
+    fig, axs = plt.subplots(2)
+    fig.suptitle('Optimization History')
 
-    input
-    df: dataframe containing the data
-    """
-    # Plot https://matplotlib.org/stable/gallery/subplots_axes_and_figures/two_scales.html
-    fig, ax1 = plt.subplots()
-
+    ax1 = axs[0]
     color = 'tab:red'
-    ax1.set_xlabel('Design Iteration')
+    #ax1.set_xlabel('Design Iteration')
     ax1.set_ylabel('OF value: Avg. Temp. [K]', color=color)
     ax1.plot(df['ITER'].values-1, df['  avgT'].values, # -1 to start at zero
              color=color,
@@ -84,31 +93,22 @@ def plotOF(df):
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.axhline(y=208.023, color='black', linestyle='-') # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
 
-    
-    fig.tight_layout()  # otherwise the right y-label is slightly clipped
-    fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('OF_constr.png', bbox_inches='tight')#, dpi=100)
-    plt.show()
-    plt.cla()
-    plt.close()
+    # ------------------------------------------------------------------------------------- #
 
-def plotGradNorm(df):
-    """
-    Plot the gradient norm of OF and constraint value, use left and right axis for that
+    gradnorm_df = pd.read_csv('gradient_norm.csv')
+    gradnorm_df = postprocessData(gradnorm_df, 'avgT-gradNorm', nan)
+    df = gradnorm_df[:xmax]
+    # ------------------------------------------------------------------------------------- #
 
-    input
-    df: dataframe containing the data
-    """
-    # Plot https://matplotlib.org/stable/gallery/subplots_axes_and_figures/two_scales.html
-    fig, ax1 = plt.subplots()
-
+    ax1 = axs[1]
     color = 'tab:red'
     ax1.set_xlabel('Design Iteration')
     #ax1.set_ylabel('OF gradient [K/m]', color=color)
-    ax1.set_ylabel('||G||/||G_0||')
+    ax1.set_ylabel('normalized Gradient Norm')
     ax1.plot(df['ITER'].values, df['avgT-gradNorm'].values / df['avgT-gradNorm'].values[0],
              color=color,
              linestyle='-',
+             linewidth=1,
              marker='o',
              markersize=4,
              clip_on=False)
@@ -117,41 +117,19 @@ def plotGradNorm(df):
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     ax1.tick_params(axis='y')#, labelcolor=color)
     ax1.grid()
-    if(False):
-        ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+    color = 'tab:blue'
+    ax1.plot(df['ITER'].values, df['dp-gradNorm'].values / df['dp-gradNorm'].values[0],
+            color=color,
+            linestyle='-',
+            linewidth=1,
+            marker='x',
+            markersize=4,
+            clip_on=False)
 
-        color = 'tab:blue'
-        ax2.set_ylabel('Constraint gradient [Pa/m]', color=color)  # we already handled the x-label with ax1
-        ax2.plot(df['ITER'].values, df['dp-gradNorm'].values / df['dp-gradNorm'].values[0],
-                color=color,
-                linestyle='-',
-                marker='x',
-                clip_on=False)
-        #ax2.set_ylim((100.0,300.0))
-        ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        ax2.tick_params(axis='y', labelcolor=color)
-    else:
-        color = 'tab:blue'
-        ax1.plot(df['ITER'].values, df['dp-gradNorm'].values / df['dp-gradNorm'].values[0],
-                color=color,
-                linestyle='-',
-                marker='x',
-                markersize=4,
-                clip_on=False)
-    
+    # ------------------------------------------------------------------------------------- #    
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
     fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('gradNorm_OF_constr.png', bbox_inches='tight')#, dpi=100)
-    plt.show()
+    plt.savefig('OF-and-Grad.pgf', bbox_inches='tight')#, dpi=100)
+    #plt.show()
     plt.cla()
     plt.close()
-    
-
-if __name__=='__main__':
-    hist_df = pd.read_csv('optim.csv')
-    hist_df = postprocessData(hist_df, '  avgT', 10000)
-    plotOF(hist_df[:xmax])
-
-    gradnorm_df = pd.read_csv('gradient_norm.csv')
-    gradnorm_df = postprocessData(gradnorm_df, 'avgT-gradNorm', nan)
-    plotGradNorm(gradnorm_df[:xmax])
