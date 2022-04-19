@@ -60,19 +60,20 @@ if __name__=='__main__':
     # Plot 2 plots into same figure
     # https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html
     fig, axs = plt.subplots(2)
-    fig.suptitle('Optimization History')
+    #fig.suptitle('Optimization History')
 
     ax1 = axs[0]
     color = 'tab:red'
     #ax1.set_xlabel('Design Iteration')
     ax1.set_ylabel('OF value: Avg. Temp. [K]', color=color)
-    ax1.plot(df['ITER'].values-1, df['  avgT'].values, # -1 to start at zero
+    ln1 = ax1.plot(df['ITER'].values-1, df['  avgT'].values, # -1 to start at zero
              color=color,
              linestyle='-',
              linewidth=1,
              marker='o',
              markersize=4,
-             clip_on=False)
+             clip_on=False,
+             label="Obj. Func.")
     ax1.set_xlim((0,xmax-1))
     ax1.set_ylim((359.0,360.2))
     ax1.tick_params(axis='y', labelcolor=color)
@@ -82,16 +83,24 @@ if __name__=='__main__':
 
     color = 'tab:blue'
     ax2.set_ylabel('Constraint: Pressure Drop [Pa]', color=color)  # we already handled the x-label with ax1
-    ax2.plot(df['ITER'].values-1, df['  dp'].values,
+    ln3 = ax2.axhline(y=208.023, color='black', linestyle='-', label="init. Constr.") # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
+    ln2 = ax2.plot(df['ITER'].values-1, df['  dp'].values,
              color=color,
              linestyle='-',
              linewidth=1,
              marker='x',
              markersize=4,
-             clip_on=False)
+             clip_on=False,
+             label="Constraint")
     ax2.set_ylim((195.0,225.0))
     ax2.tick_params(axis='y', labelcolor=color)
-    ax2.axhline(y=208.023, color='black', linestyle='-') # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
+
+# See https://stackoverflow.com/questions/5484922/secondary-axis-with-twinx-how-to-add-to-legend
+    # how to put legend of multiple axes intp one legend
+    # added these three lines
+    lns = ln1+ln2+[ln3] # ln3 is not a list by default but the others are
+    labs = [l.get_label() for l in lns]
+    ax1.legend(lns, labs, loc=0, framealpha=1, frameon=True)
 
     # ------------------------------------------------------------------------------------- #
 
@@ -111,7 +120,8 @@ if __name__=='__main__':
              linewidth=1,
              marker='o',
              markersize=4,
-             clip_on=False)
+             clip_on=False,
+             label="normalized OF gradient")
     ax1.set_xlim((0,xmax-1))
     ax1.set_ylim((0.6, 1.0))
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
@@ -124,7 +134,9 @@ if __name__=='__main__':
             linewidth=1,
             marker='x',
             markersize=4,
-            clip_on=False)
+            clip_on=False,
+            label="normalized Constr. gradient")
+    ax1.legend(framealpha=1, frameon=True)
 
     # ------------------------------------------------------------------------------------- #    
     fig.tight_layout()  # otherwise the right y-label is slightly clipped

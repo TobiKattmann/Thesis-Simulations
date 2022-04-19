@@ -68,8 +68,8 @@ def loadData(DV, FDstep, DApath, DAstring, FDpath, FDstring):
     data["FDgrad_" + str(step)] = FDgrad[i] 
 
   # Compute and add absDiff to dataframe
-  for step in FDstep:
-    data["absDiff_" + str(step)] = abs(data["DAgrad"] - data["FDgrad_" + str(step)])
+  #for step in FDstep:
+  #  data["absDiff_" + str(step)] = abs(data["DAgrad"] - data["FDgrad_" + str(step)])
 
   # Compute and add relDiff to dataframe
   for step in FDstep:
