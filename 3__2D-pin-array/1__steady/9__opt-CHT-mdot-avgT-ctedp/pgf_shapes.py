@@ -9,6 +9,16 @@ from matplotlib import colors
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import matplotlib
+matplotlib.use("pgf")
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
+
+matplotlib.rcParams['axes.unicode_minus'] = False
 
 # ------------------------------------------------------------------------------------- #
 # global variables
@@ -76,7 +86,7 @@ if __name__=='__main__':
     # ------------------------------------------------------------------------------------- #
     # Plot constrained shape with history
     shapes = read_shapes(create_folder_list(opt_history=True))
-
+    
     labels = ['10-th Design','30-th Design','Initial','Optimized']
     farben = [str(0.6),str(0.3),'black','black'] 
     styles = ['-.','--',':','-']
@@ -116,8 +126,8 @@ if __name__=='__main__':
     # ------------------------------------------------------------------------------------- #
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
     fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('shapes.png', bbox_inches='tight')#, dpi=100)
-    plt.show()
+    plt.savefig('shapes.pgf', bbox_inches='tight')#, dpi=100)
+    #plt.show()
     plt.cla()
     plt.close()
     print('End')
