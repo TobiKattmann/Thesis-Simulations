@@ -81,12 +81,43 @@ def read_shapes(folder_list):
 
 
 if __name__=='__main__':
-    fig, (ax1, ax2) = plt.subplots(1,2)
+
+    # fig = plt.figure()
+    # gs = fig.add_gridspec(2, 2, hspace=0, wspace=0)
+    # (ax1, ax2), (ax3, ax4) = gs.subplots(sharex='col', sharey='row')
+    # fig.suptitle('Sharing x per column, y per row')
+    # ax1.plot(x, y)
+    # ax2.plot(x, y**2, 'tab:orange')
+    # ax3.plot(x + 1, -y, 'tab:green')
+    # ax4.plot(x + 2, -y**2, 'tab:red')
+
+    # for ax in axs.flat:
+    #     ax.label_outer()
+
+
+    # fig = plt.figure()
+    # gs = fig.add_gridspec(3, hspace=0)
+    # axs = gs.subplots(sharex=True, sharey=True)
+    # fig.suptitle('Sharing both axes')
+    # axs[0].plot(x, y ** 2)
+    # axs[1].plot(x, 0.3 * y, 'o')
+    # axs[2].plot(x, y, '+')
+
+    # # Hide x labels and tick labels for all but bottom plot.
+    # for ax in axs:
+    #     ax.label_outer()
+
+    fig = plt.figure()
+    gs = fig.add_gridspec(1, 2, wspace=0)
+    (ax1, ax2) = gs.subplots(sharex=True, sharey=True)
+    # ax1.set_aspect('equal', adjustable='box')
+    # ax2.set_aspect('equal', adjustable='box')
+    #fig, (ax1, ax2) = plt.subplots(1,2)
 
     # ------------------------------------------------------------------------------------- #
     # Plot constrained shape with history
     shapes = read_shapes(create_folder_list(opt_history=True))
-    
+
     labels = ['10-th Design','30-th Design','Initial','Optimized']
     farben = [str(0.6),str(0.3),'black','black'] 
     styles = ['-.','--',':','-']
@@ -95,7 +126,8 @@ if __name__=='__main__':
         ax1.plot(shape["Points:0"], shape["Points:1"],
                  label=labels[i],
                  color=farben[i],
-                 linestyle=styles[i])
+                 linestyle=styles[i],
+                 linewidth=1)
 
     # ------------------------------------------------------------------------------------- #
     # Plot cte opt with uncte opt and initial geo.
@@ -109,23 +141,27 @@ if __name__=='__main__':
         ax2.plot(shape["Points:0"], shape["Points:1"],
                  label=labels[i],
                  color=farben[i],
-                 linestyle=styles[i])
+                 linestyle=styles[i],
+                 linewidth=1)
 
     # ------------------------------------------------------------------------------------- #
+    ax1.set_ylabel('y/r [-]')
+    # ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+    # ax1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax1.set_xlim((-1.25,1.25))
+    ax1.set_ylim((-1.5,1.5))
     for ax in [ax1, ax2]:
-        ax.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-        ax.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        ax.legend(framealpha=1, frameon=False)
-        ax.set_xlim((-1.25,1.25))
-        ax.set_ylim((-1.5,1.5))
-        ax.set_xlabel('x/r [-]')
-        ax.set_ylabel('y/r [-]')
-        # Force a square plot https://www.delftstack.com/howto/matplotlib/how-to-make-a-square-plot-with-equal-axes-in-matplotlib/
         ax.set_aspect('equal', adjustable='box')
+        ax.label_outer()
+        ax.legend(framealpha=1, frameon=False)
+        
+        ax.set_xlabel('x/r [-]')  
+        # Force a square plot https://www.delftstack.com/howto/matplotlib/how-to-make-a-square-plot-with-equal-axes-in-matplotlib/
+        
 
     # ------------------------------------------------------------------------------------- #
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
-    fig.set_size_inches(w=fig_width, h=fig_height)
+    #fig.set_size_inches(w=fig_width, h=fig_height)
     plt.savefig('shapes.pgf', bbox_inches='tight')#, dpi=100)
     #plt.show()
     plt.cla()
