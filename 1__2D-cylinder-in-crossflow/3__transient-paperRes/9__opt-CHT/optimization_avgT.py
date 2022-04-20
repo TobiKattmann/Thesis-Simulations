@@ -12,7 +12,7 @@ ffd = InputVariable(np.zeros((nDV,)),ArrayLabelReplacer("__FFD_PTS__"), 0, np.on
 # The master config `chtMaster.cfg` serves as an SU2 adjoint regression test.
 # For a correct gradient validation we need to exchange some options
 
-volume_output_def = Parameter(["OUTPUT_FILES= RESTART, PARAVIEW"],\
+volume_output_def = Parameter(["OUTPUT_FILES= RESTART, PARAVIEW_MULTIBLOCK"],\
                  LabelReplacer("OUTPUT_FILES= RESTART"))
 # 61*15 + 2 restart (primal), 61*5=305 (adjoint) = 10 periods washout 5 periods avg
 time_iter_primal = Parameter(["TIME_ITER= 917"],\

@@ -75,6 +75,7 @@ if __name__=='__main__':
 
     color = 'tab:blue'
     ax2.set_ylabel('Constraint: Drag [-]', color=color)  # we already handled the x-label with ax1
+    ln3 = ax2.axhline(y=1.332, color='black', linestyle='-', label="init. Constr.") # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
     ln2 = ax2.plot(df['ITER'].values-1, df['  drag'].values,
              color=color,
              linestyle='-',
@@ -85,7 +86,6 @@ if __name__=='__main__':
              label="Constraint")
     ax2.set_ylim((1.29,1.37))
     ax2.tick_params(axis='y', labelcolor=color)
-    ln3 = ax2.axhline(y=1.332, color='black', linestyle='-', label="init. Constr.") # https://stackoverflow.com/questions/33382619/plot-a-horizontal-line-using-matplotlib
 
     # See https://stackoverflow.com/questions/5484922/secondary-axis-with-twinx-how-to-add-to-legend
     # how to put legend of multiple axes intp one legend
