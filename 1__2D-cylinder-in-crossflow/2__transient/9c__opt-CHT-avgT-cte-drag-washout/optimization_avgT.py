@@ -12,7 +12,7 @@ ffd = InputVariable(np.zeros((nDV,)),ArrayLabelReplacer("__FFD_PTS__"), 0, np.on
 # The master config `chtMaster.cfg` serves as an SU2 adjoint regression test.
 # For a correct gradient validation we need to exchange some options
 
-volume_output_def = Parameter(["OUTPUT_FILES= RESTART, PARAVIEW"],\
+volume_output_def = Parameter(["OUTPUT_FILES= RESTART, PARAVIEW_MULTIBLOCK, PARAVIEW"],\
                  LabelReplacer("OUTPUT_FILES= RESTART"))
 time_iter_primal = Parameter(["TIME_ITER= 812"],\
                 LabelReplacer("TIME_ITER= 270"))

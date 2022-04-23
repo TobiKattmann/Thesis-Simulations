@@ -114,16 +114,16 @@ drag_adj = makeAdjRun("DRAG_ADJ", drag_OF)
 hist=configMaster.split('.')[0] + ".csv"
 
 tavgT = Function("tavgT", "DIRECT/"+hist,LabeledTableReader("\"tavg[AvgTemp[1]]\""))
-tavgT.addInputVariable(ffd,"AVGT_ADJ/avg_of_grad.csv",TableReader(None,0,(1,0))) # all rows, col 0, don't read the header
-tavgT.addValueEvalStep(deform)
-tavgT.addValueEvalStep(direct)
-tavgT.addGradientEvalStep(avgT_adj)
+#tavgT.addInputVariable(ffd,"AVGT_ADJ/avg_of_grad.csv",TableReader(None,0,(1,0))) # all rows, col 0, don't read the header
+#tavgT.addValueEvalStep(deform)
+#tavgT.addValueEvalStep(direct)
+#tavgT.addGradientEvalStep(avgT_adj)
 tavgT.setDefaultValue(1e3)
 
 drag = Function("drag", "DIRECT/"+hist,LabeledTableReader("\"tavg[CD[0]]\""))
 drag.addInputVariable(ffd,"DRAG_ADJ/avg_of_grad.csv",TableReader(None,0,(1,0))) # all rows, col 0, don't read the header
-#drag.addValueEvalStep(deform)
-#drag.addValueEvalStep(direct)
+drag.addValueEvalStep(deform)
+drag.addValueEvalStep(direct)
 drag.addGradientEvalStep(drag_adj)
 drag.setDefaultValue(1e3)
 
@@ -134,8 +134,8 @@ driver = ScipyDriver()
 # min = minimization of OF
 # avgT = function to be optimized
 # 1.0 = scale, optimizer will see funcVal*scale, Can be used to scale the gradient from of_grad
-driver.addObjective("min", tavgT, 1/360)
-driver.addUpperBound(drag, 1.332, 1/1.332)
+driver.addObjective("min", drag, 1/1.322)
+driver.addObjective("min", tavgT, 1e-100)
 
 driver.setWorkingDirectory("OPTIM")
 #printDocumentation(driver.setEvaluationMode)
