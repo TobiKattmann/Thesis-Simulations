@@ -85,7 +85,7 @@ if __name__ == "__main__":
   # user input
   nDV=7
   chosenDV= list(range(0, nDV, 1))
-  FDstep= [1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13]
+  FDstep= [1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13, 1e-14]
   
   # Load data and compute FDgrad, abs/relDiff
   print("\nAVGT")

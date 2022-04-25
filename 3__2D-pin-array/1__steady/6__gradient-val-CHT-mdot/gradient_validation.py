@@ -141,7 +141,7 @@ driver.grad(x)
 
 # Primal simulation for each FD step-size and each DV
 chosenDV= range(0, nDV, 1)
-FDstep= [1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13]
+FDstep= [1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13, 1e-14]
 for iDV in chosenDV:
   for stepsize in FDstep:
     print("Computing primal of DV ", iDV, "/", nDV-1, " with stepsize ", stepsize)
