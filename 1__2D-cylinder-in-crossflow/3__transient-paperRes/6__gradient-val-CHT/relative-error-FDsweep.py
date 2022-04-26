@@ -8,12 +8,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# https://stackoverflow.com/questions/30201310/use-of-hyphen-or-minus-sign-in-matplotlib-versus-compatibility-with-latex
-# Ensures correct rendering of minus sign '-' in the Latex document
-from matplotlib.ticker import FuncFormatter
-def math_formatter(x, pos):
-    return "%i" %x
-
 # ------------------------------------------------------------------------------------- #
 # global variables
 textwidth = 6.202
@@ -50,9 +44,9 @@ def FD_error_plot(ax, df, chosenDV, FDstep):
 if __name__=='__main__':
 
     # Define for which DV's and for which FD-stepsize the plot should be created
-    nDV= 7
-    chosenDV= range(0, nDV, 1)[3:4]
-    FDstep= [1e-4, 1e-05, 1e-06, 1e-07, 1e-08, 1e-09, 1e-10, 1e-11, 1e-12, 1e-13, 1e-14]
+    chosenDV= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    chosenDV= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    FDstep= [1e-01, 1e-02, 1e-03, 1e-04, 1e-05, 1e-06, 1e-07, 1e-08, 1e-09, 1e-10]
 
     # https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html
     # two subplots horizontally
@@ -61,13 +55,13 @@ if __name__=='__main__':
     avgt_df = pd.read_csv('gradient_data_avgt.csv')
     FD_error_plot(ax1, avgt_df, chosenDV, FDstep)
 
-    dp_df = pd.read_csv('gradient_data_dp.csv')
+    dp_df = pd.read_csv('gradient_data_drag.csv')
     FD_error_plot(ax2, dp_df, chosenDV, FDstep)
 
     for ax in [ax1, ax2]:
         ax.grid(True, which="both")
-        ax.set_xlim((1e-14,1e-4))
-        ax.set_ylim((1e-5,1e-0))
+        ax.set_xlim((1e-10,1e-1))
+        ax.set_ylim((1e-9,1e-0))
         ax.set_xlabel('FD stepsize [m]')
         ax.set_ylabel('|Sens_{FD} - Sens_{AD}| / Sens_{AD}')
         ax.legend(framealpha=1, frameon=True)

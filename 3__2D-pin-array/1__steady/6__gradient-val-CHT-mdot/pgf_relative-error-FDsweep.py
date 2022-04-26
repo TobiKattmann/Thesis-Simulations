@@ -7,12 +7,16 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("pgf")
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
 
-# https://stackoverflow.com/questions/30201310/use-of-hyphen-or-minus-sign-in-matplotlib-versus-compatibility-with-latex
-# Ensures correct rendering of minus sign '-' in the Latex document
-from matplotlib.ticker import FuncFormatter
-def math_formatter(x, pos):
-    return "%i" %x
+matplotlib.rcParams['axes.unicode_minus'] = False
 
 # ------------------------------------------------------------------------------------- #
 # global variables
@@ -74,8 +78,8 @@ if __name__=='__main__':
 
     plt.tight_layout()
     fig.set_size_inches(fig_width, fig_height)
-    plt.savefig('FD_error_plot.png', bbox_inches='tight')
-    show = True
+    plt.savefig('FD_error_plot.pgf', bbox_inches='tight')
+    show = False
     if(show): plt.show()
     plt.clf()
     plt.close()
