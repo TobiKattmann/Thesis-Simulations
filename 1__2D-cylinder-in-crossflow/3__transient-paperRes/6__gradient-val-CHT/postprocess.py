@@ -91,9 +91,7 @@ if __name__ == "__main__":
 
   # user input
   chosenDV= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-  FDstep= [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8]
-  #chosenDV= [0,1]
-  #FDstep= [1e-6]
+  FDstep= [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10]
   
   # Load data and compute FDgrad, abs/relDiff
   print("\nAVGT")

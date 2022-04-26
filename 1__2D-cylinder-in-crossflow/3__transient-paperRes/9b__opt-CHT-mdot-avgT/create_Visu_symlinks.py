@@ -37,8 +37,10 @@ if __name__ == '__main__':
   # loop trough folders and symlink files
   for i,folder in enumerate(DSN_folders):
     # check if file exists
-    sym_file= DSN_folders[i] + "/DEFORM/chtMaster_00000.vtm"
+    sym_file= DSN_folders[i] + "/DEFORM/volume_deformed_0_00000.vtu"
+    sym_file3= DSN_folders[i] + "/DEFORM/volume_deformed_1_00000.vtu"
     sym_file2= DSN_folders[i] + "/DEFORM/ffd_boxes_def_0.vtk"
     if os.path.exists(sym_file):
-      os.symlink("../" + sym_file, dir + make_dst_filename(i, "/visu_", ".vtm"))
+      os.symlink("../" + sym_file, dir + make_dst_filename(i, "/visu_", ".vtu"))
+      os.symlink("../" + sym_file3, dir + make_dst_filename(i, "/visu_heat_", ".vtu"))
       os.symlink("../" + sym_file2, dir + make_dst_filename(i, "/ffd_", ".vtk"))
