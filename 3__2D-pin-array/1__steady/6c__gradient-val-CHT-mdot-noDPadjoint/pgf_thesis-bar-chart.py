@@ -45,8 +45,14 @@ def barchart(ax, df, ylabel, imageName, x='DV', y=['DAgrad']):
     bar_width = bar_block_width/len(y) # i.e. one bar-block has the total-width of 0.7
     true_bar_width = bar_width*0.9 # one might want to have space between the bars of one block itself as well (1.0=no space)
 
-    colors = ['tab:red', 'tab:blue']
+    if(imageName=="avgt"):
+        maincol = 'tab:red'
+    elif(imageName=='dp'):
+        maincol = 'tab:blue'
+    colors = [maincol, 'white']
     labels = ['DA', 'FD (1e-12)']
+    hatching = ['', '//']
+    ecol = maincol
 
     for i,columnName in enumerate(y):
         # create x-array, values are middle points of the bars
@@ -56,7 +62,9 @@ def barchart(ax, df, ylabel, imageName, x='DV', y=['DAgrad']):
         x_vals = (index - bar_block_width/2 + bar_width/2) + (i * bar_width)
         ax.bar(x_vals, df[columnName].values, true_bar_width,
                 label=labels[i],
-                color = colors[i])
+                color = colors[i], 
+                hatch=hatching[i],
+                edgecolor=ecol)
 
     if(imageName=="avgt"):
         ax.set_ylim((-6e3, 4e3))
@@ -87,7 +95,7 @@ if __name__=='__main__':
 
     plt.tight_layout()
     fig.set_size_inches(fig_width, fig_height)
-    plt.savefig('GV-wrong.pgf', bbox_inches='tight')#, dpi=100)
+    plt.savefig('GV.pgf', bbox_inches='tight')#, dpi=100)
     show = False
     if(show): plt.show()
     plt.clf()

@@ -29,9 +29,9 @@ def create_folder_list(all=False, opt_history=False, cte_impact=False):
         # sort alphabetically as there were minor problems
         DSN_folders = sorted(DSN_folders)
     elif(opt_history):
-        DSN_folders = ['DSN_004','DSN_005','DSN_001','DSN_006']
+        DSN_folders = ['DSN_001','DSN_005','DSN_010','DSN_024']
     elif(cte_impact):
-        DSN_folders = ['DSN_004', 'DSN_005','DSN_001','DSN_006']
+        DSN_folders = ['DSN_001','../9b__opt-CHT-mdot-avgT/DSN_017', '../9c__opt-CHT-mdot-dp/DSN_012','DSN_017']
     else:
         raise Exception('Specify folders to be read.')
 
@@ -75,9 +75,9 @@ if __name__=='__main__':
     # Plot constrained shape with history
     shapes = read_shapes(create_folder_list(opt_history=True))
 
-    labels = ['10-th Design','30-th Design','Initial','Optimized']
-    farben = [str(0.6),str(0.3),'black','black'] 
-    styles = ['-.','--',':','-']
+    labels = ['Initial','5-th Design','10-th Design','Optimized']
+    farben = ['black',str(0.6),str(0.3),'black'] 
+    styles = [':','-.','--','-']
 
     for i,shape in enumerate(shapes):
         ax1.plot(shape["Points:0"], shape["Points:1"],
@@ -90,9 +90,9 @@ if __name__=='__main__':
     # Plot cte opt with uncte opt and initial geo.
     shapes = read_shapes(create_folder_list(cte_impact=True))
 
-    labels = ['avgT-optimized','dp-optimized','Initial','cte-optimized']
-    farben = ['tab:red','tab:blue','black','black'] 
-    styles = ['--','-.',':','-']
+    labels = ['Initial','avgT-optimized','dp-optimized','cte-optimized']
+    farben = ['black','tab:red','tab:blue','black'] 
+    styles = [':','--','-.','-']
 
     for i,shape in enumerate(shapes):
         ax2.plot(shape["Points:0"], shape["Points:1"],
