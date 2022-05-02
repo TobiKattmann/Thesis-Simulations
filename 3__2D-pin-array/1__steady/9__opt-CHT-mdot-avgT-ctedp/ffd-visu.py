@@ -167,11 +167,14 @@ if __name__ == '__main__':
     ax3.set_ylabel('y/r [-]')
     ax3.set_xlabel('x/r [-]')
     ax4.set_xlabel('x/r [-]')
-    #ax1.set_xlim((-1.25,1.25))
-    #ax1.set_ylim((-1.5,1.5))
+    ax1.set_ylim((-0.19,2.1))
+    ax3.set_ylim((-0.19,2.1))
+    ax1.set_xlim((-1.57,1.57))
+    ax4.set_xlim((-1.57,1.57))
     for ax in [ax1, ax2, ax3, ax4]:
         ax.set_aspect('equal', adjustable='box')
         ax.label_outer()
-        ax.legend(framealpha=1, frameon=True, bbox_to_anchor=(1, 1), loc=1, borderaxespad=0)
+        ax.legend(framealpha=0, frameon=False, loc='upper right')
 
+    fig.tight_layout()
     plt.show()

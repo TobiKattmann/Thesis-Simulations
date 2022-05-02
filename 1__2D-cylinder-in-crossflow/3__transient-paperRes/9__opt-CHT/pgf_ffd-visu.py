@@ -147,7 +147,7 @@ if __name__ == '__main__':
     ax.plot(shape['x'], shape['y'],
             color='tab:red',
             linestyle='--',
-            label='AvgT-Optimized')
+            label='AvgT-Opt.')
 
     add_init_FFD(ax)
     x,y = read_FFD_box(folder)
@@ -162,7 +162,7 @@ if __name__ == '__main__':
     ax.plot(shape['x'], shape['y'],
             color='tab:blue',
             linestyle='-.',
-            label='dp-Optimized')
+            label='Drag-Optimized')
 
     add_init_FFD(ax)
     x,y = read_FFD_box(folder)
@@ -176,12 +176,14 @@ if __name__ == '__main__':
     ax3.set_ylabel('y/r [-]')
     ax3.set_xlabel('x/r [-]')
     ax4.set_xlabel('x/r [-]')
-    #ax1.set_xlim((-1.25,1.25))
-    #ax1.set_ylim((-1.5,1.5))
+    ax1.set_xlim((-2.715,2.715))
+    #ax1.set_ylim((-2.0,2.0))
+    ax4.set_xlim((-2.715,2.715))
+    #ax4.set_ylim((-2.0,2.0))
     for ax in [ax1, ax2, ax3, ax4]:
-        #ax.set_aspect('equal', adjustable='box')
+        ax.set_aspect('equal', adjustable='box')
         ax.label_outer()
-        ax.legend(framealpha=1, frameon=True, bbox_to_anchor=(1, 1), loc=1, borderaxespad=0)
+        ax.legend(framealpha=0, frameon=False, loc='upper left', borderaxespad=0)
 
     # ------------------------------------------------------------------------------------- #
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
