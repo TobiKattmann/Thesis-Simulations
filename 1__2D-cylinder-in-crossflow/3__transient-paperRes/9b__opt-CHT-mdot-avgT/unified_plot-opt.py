@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 textwidth = 6.202
 fig_width = textwidth # two images above one another
 fig_height = textwidth
-xmax = 25
+xmax = 40
 
 # ------------------------------------------------------------------------------------- #
 

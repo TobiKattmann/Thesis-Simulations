@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 textwidth = 6.202
 fig_width = textwidth # two images above one another
 fig_height = textwidth
-xmax = 25
+xmax = 51
 
 # ------------------------------------------------------------------------------------- #
 
@@ -67,7 +67,7 @@ if __name__=='__main__':
              clip_on=False,
              label="Obj. Func.")
     ax1.set_xlim((0,xmax-1))
-    ax1.set_ylim((354.0,358.0))
+    ax1.set_ylim((353.0,358.0))
     ax1.tick_params(axis='y', labelcolor=color)
     ax1.grid()
 
@@ -115,7 +115,7 @@ if __name__=='__main__':
              clip_on=False,
              label="normalized OF gradient")
     ax1.set_xlim((0,xmax-1))
-    ax1.set_ylim((0.8, 1.1))
+    ax1.set_ylim((0.85, 1.1))
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     ax1.tick_params(axis='y')#, labelcolor=color)
     ax1.grid()

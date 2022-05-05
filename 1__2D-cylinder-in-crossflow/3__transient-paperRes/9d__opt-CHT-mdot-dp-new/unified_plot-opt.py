@@ -9,21 +9,13 @@ from cmath import nan
 from numpy import NaN
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use("pgf")
-matplotlib.rcParams.update({
-    "pgf.texsystem": "pdflatex",
-    'font.family': 'serif',
-    'text.usetex': True,
-    'pgf.rcfonts': False,
-})
 
 # ------------------------------------------------------------------------------------- #
 # global variables
 textwidth = 6.202
 fig_width = textwidth # two images above one another
 fig_height = textwidth
-xmax = 51
+xmax = 100
 
 # ------------------------------------------------------------------------------------- #
 
@@ -47,7 +39,7 @@ def postprocessData(df, dfkey, infeasibleValue):
     df['ITER'] = df['ITER'].astype(float) # convert to float such that a nan can be specified -> not possible with int
 
     for index, row in df.iterrows():
-       if(row[dfkey] == infeasibleValue):
+       if(row[dfkey] >= infeasibleValue or row[dfkey] == 0.0):
            df.at[index, 'ITER'] = nan
 
     return df
@@ -74,8 +66,8 @@ if __name__=='__main__':
              markersize=4,
              clip_on=False,
              label="Obj. Func.")
-    ax1.set_xlim((0,xmax-1))
-    ax1.set_ylim((353.0,358.0))
+    #ax1.set_xlim((0,xmax-1))
+    #ax1.set_ylim((354.0,358.0))
     ax1.tick_params(axis='y', labelcolor=color)
     ax1.grid()
 
@@ -92,7 +84,7 @@ if __name__=='__main__':
              markersize=4,
              clip_on=False,
              label="Constraint")
-    ax2.set_ylim((1.29,1.37))
+    #ax2.set_ylim((1.29,1.37))
     ax2.tick_params(axis='y', labelcolor=color)
 
     # See https://stackoverflow.com/questions/5484922/secondary-axis-with-twinx-how-to-add-to-legend
@@ -113,7 +105,7 @@ if __name__=='__main__':
     color = 'tab:red'
     ax1.set_xlabel('Design Iteration')
     #ax1.set_ylabel('OF gradient [K/m]', color=color)
-    ax1.set_ylabel('normalized Gradient Norm')
+    ax1.set_ylabel('||G||/||G_0||')
     ax1.plot(df['ITER'].values, df['avgT-gradNorm'].values / df['avgT-gradNorm'].values[0],
              color=color,
              linestyle='-',
@@ -122,8 +114,8 @@ if __name__=='__main__':
              markersize=4,
              clip_on=False,
              label="normalized OF gradient")
-    ax1.set_xlim((0,xmax-1))
-    ax1.set_ylim((0.85, 1.1))
+    #ax1.set_xlim((0,xmax-1))
+    #ax1.set_ylim((0.8, 1.1))
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     ax1.tick_params(axis='y')#, labelcolor=color)
     ax1.grid()
@@ -141,7 +133,7 @@ if __name__=='__main__':
     # ------------------------------------------------------------------------------------- #    
     fig.tight_layout()  # otherwise the right y-label is slightly clipped
     fig.set_size_inches(w=fig_width, h=fig_height)
-    plt.savefig('OF-and-Grad.pgf', bbox_inches='tight')#, dpi=100)
-    #plt.show()
+    plt.savefig('OF-and-Grad.png', bbox_inches='tight')#, dpi=100)
+    plt.show()
     plt.cla()
     plt.close()
