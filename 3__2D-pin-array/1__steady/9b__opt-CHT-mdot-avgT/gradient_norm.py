@@ -23,6 +23,7 @@ def getGradientNorms(gradFolderNames, identifiers):
   baseFolder = "./"
   sub_folders = [name for name in os.listdir(baseFolder) if os.path.isdir(os.path.join(baseFolder, name))]
   DSN_folders = [folder for folder in sub_folders if 'DSN' in folder]
+  DSN_folders.sort()
 
   # create dataframe with the ITER column, thus the correct column length
   df_gradNorm = pd.DataFrame({"ITER" : range(len(DSN_folders))})

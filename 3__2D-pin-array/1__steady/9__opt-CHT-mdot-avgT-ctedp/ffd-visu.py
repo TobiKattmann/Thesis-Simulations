@@ -68,7 +68,7 @@ def read_FFD_box(filename):
 
     return x,y
 
-def plot_FFD_box(ax, x, y, col='black', mark='o', ls='-', lw=0.5, ms=10,):
+def plot_FFD_box(ax, x, y, col='black', mark='o', ls='-', lw=0.5, ms=5,):
     """
     Plot FFD box on axes object.
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     # ------------------------------------------------------------------------------------- #
     # Plot up-right side: cte-optimized
     ax = ax2
-    folder = 'DSN_060'
+    folder = 'DSN_061'
 
     shape = read_shape(folder)
     ax.plot(shape['x'], shape['y'],
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     # ------------------------------------------------------------------------------------- #
     # Plot down-left side: avgT-optimized
     ax = ax3
-    folder = '../9b__opt-CHT-mdot-avgT/DSN_273'
+    folder = '../9b__opt-CHT-mdot-avgT/DSN_103'
 
     shape = read_shape(folder)
     ax.plot(shape['x'], shape['y'],
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     # ------------------------------------------------------------------------------------- #
     # Plot down-right side: dp optimized
     ax = ax4
-    folder = '../9c__opt-CHT-mdot-dp/DSN_173'
+    folder = '../9c__opt-CHT-mdot-dp/DSN_046'
 
     shape = read_shape(folder)
     ax.plot(shape['x'], shape['y'],

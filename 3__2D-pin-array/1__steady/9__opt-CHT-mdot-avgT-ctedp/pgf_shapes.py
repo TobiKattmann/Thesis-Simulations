@@ -38,9 +38,9 @@ def create_folder_list(all=False, opt_history=False, cte_impact=False):
         # sort alphabetically as there were minor problems
         DSN_folders = sorted(DSN_folders)
     elif(opt_history):
-        DSN_folders = ['DSN_001','DSN_010','DSN_030','DSN_060']
+        DSN_folders = ['DSN_001','DSN_012','DSN_032','DSN_061']
     elif(cte_impact):
-        DSN_folders = ['DSN_001','../9b__opt-CHT-mdot-avgT/DSN_273', '../9c__opt-CHT-mdot-dp/DSN_173','DSN_060']
+        DSN_folders = ['DSN_001','../9b__opt-CHT-mdot-avgT/DSN_103', '../9c__opt-CHT-mdot-dp/DSN_046','DSN_061']
     else:
         raise Exception('Specify folders to be read.')
 
@@ -90,7 +90,7 @@ if __name__=='__main__':
     # Plot constrained shape with history
     shapes = read_shapes(create_folder_list(opt_history=True))
 
-    labels = ['Initial','10-th Design','30-th Design','cte-Optimized']
+    labels = ['Initial','11-th Design','31-th Design','cte-Optimized']
     farben = ['black',str(0.6),str(0.3),'black'] 
     styles = [':','-.','--','-']
 
