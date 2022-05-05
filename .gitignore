@@ -31,6 +31,9 @@ OPTIM
 doe.his
 optim.his
 
+# folder
+__pycache__
+
 # intermediate debug setups
 .vscode
 
